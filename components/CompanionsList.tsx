@@ -19,7 +19,7 @@ interface CompanionsListProps {
 const CompanionsList = ({ title, companions, classNames }: CompanionsListProps) => {
     return (
         <article className={cn( 'companion-list', classNames )}>
-            <h2 className="font-bold text-3xl">Recent sessions</h2>
+            <h2 className="font-bold text-3xl">{title}</h2>
 
             <Table>
                 <TableHeader>
@@ -38,7 +38,7 @@ const CompanionsList = ({ title, companions, classNames }: CompanionsListProps) 
                                   <div className="size-[72px] flex items-center justify-center rounded-2xl max-md:hidden" style={{backgroundColor: getSubjectColor(subject)}}>
                                       <Image src={`/icons/${subject}.svg`} alt={subject} width={35} height={35}/>
                                   </div>
-                                  <div className="flex flex-col gap-2">
+                                  <div className="flex flex-col gap-2 whitespace-nowrap">
                                       <p className="font-bold text-2xl">
                                           {name}
                                       </p>
