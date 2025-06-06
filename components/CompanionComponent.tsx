@@ -54,7 +54,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
               addToSessionHistory(companionId)
         }
 
-        const onCallConnecting = () => setCallStatus(CallStatus.CONNECTING);
+        // const onCallConnecting = () => setCallStatus(CallStatus.CONNECTING);
         const onMessage = (message: Message) => {
             if(message.type=== 'transcript' && message.transcriptType === 'final') {
                 const newMessage= { role: message.role, content: message.transcript}
@@ -66,7 +66,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
         const onSpeechStart = () => setIsSpeaking(true);
         const onSpeechEnd = () => setIsSpeaking(false);
 
-        const onError = (error: Error) => console.log('Error');
+        const onError = (error: Error) => console.log('Error',error);
 
         vapi.on( 'call-start', onCallStart );
         vapi.on( 'call-end', onCallEnd );
@@ -84,7 +84,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
             vapi.off( 'speech-end', onSpeechEnd );
         }
 
-    }, []);
+    }, [companionId]);
 
     const toggleMicrophone = () => {
         const isMuted = vapi.isMuted();
@@ -103,8 +103,9 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
             serverMessages:[],
         }
 
-        //@ts-expect-error
+        // @ts-expect-error: vapi.start expects different params, but works at runtime
         vapi.start(configureAssistant(voice, style), assistantOverrides)
+
     }
 
     const handleDisconnect = async () => {
